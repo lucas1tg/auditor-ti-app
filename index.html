@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101827">
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="description" content="Checklist interativo de preparação para Auditor de Tecnologia da Informação — STC/MA.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<title>Auditor TI — Plano de Estudos</title>
+<style>
+:root{--bg:#0b1220;--panel:#131e30;--panel2:#1a2940;--text:#edf3fb;--muted:#9aabc1;--line:#2b3b52;--accent:#55c59a;--blue:#78a9ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:24px 18px 18px;background:linear-gradient(145deg,#172942,#101827);border-bottom:1px solid var(--line)}
+.wrap{max-width:760px;margin:auto}h1{font-size:23px;margin:0 0 5px}header p{margin:0;color:var(--muted);font-size:13px}
+main{padding:16px 14px 40px}.summary{background:var(--panel);border:1px solid var(--line);padding:15px;border-radius:16px;margin-bottom:18px}
+.sumrow{display:flex;justify-content:space-between;align-items:center;gap:12px}.pct{font-size:25px;font-weight:750;color:var(--accent)}
+.track{height:9px;background:#26364b;border-radius:20px;overflow:hidden;margin:10px 0 7px}.fill{height:100%;width:0;background:var(--accent);transition:width .2s}
+.small{font-size:12px;color:var(--muted)}.section{margin:20px 0 10px;font-size:16px;font-weight:750;display:flex;justify-content:space-between;align-items:center}
+.section span{font-size:12px;color:var(--muted);font-weight:500}
+.subject{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:9px 0;overflow:hidden}
+.subject summary{list-style:none;display:flex;align-items:center;gap:10px;padding:14px;cursor:pointer;font-weight:650}
+.subject summary::-webkit-details-marker{display:none}.chev{color:var(--blue);font-size:18px;transition:transform .15s;width:16px}.subject[open] .chev{transform:rotate(90deg)}
+.subjectname{flex:1}.count{font-size:12px;color:var(--muted);white-space:nowrap}
+.sublist{padding:0 13px 12px;border-top:1px solid var(--line)}
+.item{display:flex;gap:10px;padding:10px 2px;border-bottom:1px solid #233248;align-items:flex-start;font-size:13px;color:#d9e3ef}
+.item:last-child{border:0}.item input{accent-color:var(--accent);width:18px;height:18px;flex:none;margin:1px 0 0}
+.item.done span{text-decoration:line-through;color:#8293a9}
+.actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}button{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;font-weight:600}
+.note{margin-top:20px;color:var(--muted);font-size:12px}
+@media(min-width:600px){main{padding:22px 20px 50px}header{padding:30px 22px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Auditor — Tecnologia da Informação</h1><p>STC / MA · Checklist interativo de preparação</p></div></header>
+<main class="wrap">
+<section class="summary">
+ <div class="sumrow"><strong>Progresso geral</strong><div class="pct" id="percent">0%</div></div>
+ <div class="track"><div class="fill" id="bar"></div></div>
+ <div class="sumrow small"><span id="done">0 assuntos concluídos</span><span id="total">0 no total</span></div>
+ <div class="actions"><button id="install" hidden>Instalar aplicativo</button><button id="expand">Expandir tudo</button><button id="collapse">Recolher tudo</button><button id="reset">Zerar marcações</button></div>
+</section>
+<div id="content"></div>
+<p class="note">Seus marcadores e progresso ficam salvos neste navegador, neste aparelho. Evite limpar os dados do navegador se quiser preservar o progresso. Para usar como aplicativo, abra este arquivo no navegador do celular e escolha “Adicionar à tela inicial”, se disponível.</p>
+</main>
+<script>
+const data = [
+{title:"Conhecimentos Gerais",subjects:[
+["Língua Portuguesa",["Redação oficial","Ortografia e acentuação","Emprego do sinal indicativo de crase","Compreensão e interpretação de textos de gêneros variados","Relação do texto com seu contexto histórico","Denotação e conotação","Discurso direto, discurso indireto e discurso indireto livre","Intertextualidade","Figuras de linguagem","Morfossintaxe","Elementos estruturais e processos de formação de palavras","Sinonímia e antonímia","Pontuação","Pronomes","Concordância nominal e concordância verbal","Flexão nominal e flexão verbal","Vozes do verbo","Correlação de tempos e modos verbais","Regência nominal e regência verbal","Coordenação e subordinação","Conectivos","Reconhecimento de frases corretas e incorretas","Organização e reorganização de orações e períodos","Equivalência e transformação de estruturas"]],
+["Matemática e Raciocínio Lógico",["Estrutura lógica de relações entre pessoas, lugares, objetos ou eventos fictícios","Dedução de novas informações a partir das relações fornecidas","Avaliação das condições usadas para estabelecer estruturas lógicas","Raciocínio verbal","Raciocínio matemático","Raciocínio sequencial","Orientação espacial e temporal","Formação de conceitos e discriminação de elementos","Conclusões válidas a partir de hipóteses","Números inteiros e racionais","Operações: adição, subtração, multiplicação, divisão e potenciação","Expressões numéricas","Múltiplos e divisores de números naturais","Problemas com números e operações","Frações e operações com frações","Razões e proporções","Divisão em partes proporcionais","Regra de três","Porcentagem, acréscimos e descontos","Estatística: moda, mediana e média aritmética simples e ponderada","Medidas de dispersão: desvio médio, amplitude, variância e desvio padrão","Leitura e interpretação de histogramas, gráficos de setores, infográficos e tabelas"] ],
+["Geografia e História do Maranhão",["Formação territorial e ocupação do espaço maranhense","Localização, limites, divisão político-administrativa e regionalização","Relevo, clima, solos, vegetação, biomas e domínios de transição","Hidrografia e principais bacias hidrográficas","Litoral maranhense, ecossistemas costeiros e recursos naturais","População, dinâmica demográfica, migrações, urbanização e rede urbana","Aspectos econômicos: agricultura, pecuária, extrativismo, indústria e mineração","Comércio, serviços, turismo, infraestrutura, portos e ferrovias","Questões ambientais, conservação da biodiversidade e desenvolvimento sustentável","Povos indígenas, comunidades quilombolas e populações tradicionais","Povos originários e colonização","França Equinocial e ocupação portuguesa","Fundação e formação de São Luís","Economia e sociedade colonial; escravidão indígena e africana","Produção algodoeira e transformações econômicas","Independência e formação da província","Balaiada: contexto, causas, personagens, desenvolvimento e consequências","Maranhão na Primeira República","Transformações econômicas, políticas e sociais no século XX","Industrialização, urbanização, grandes projetos, mineração e infraestrutura","Maranhão contemporâneo e processo de redemocratização","Bumba meu boi, Tambor de Crioula, Tambor de Mina, reggae e manifestações populares","Literatura e personalidades maranhenses","Patrimônio material e imaterial","Aspectos políticos, sociais, econômicos, ambientais e culturais do Maranhão na atualidade"]]
+]},
+{title:"Auditoria, Controle e Fiscalização",subjects:[
+["1. Fundamentos de auditoria",["Conceitos de auditoria","Objetivos e princípios","Tipos de auditoria","Auditoria governamental"]],
+["2. Normas e princípios de auditoria",["Independência","Objetividade","Ética","Ceticismo profissional","Julgamento profissional","Normas aplicáveis à auditoria pública"]],
+["3. Planejamento de auditoria",["Definição de objetivos e escopo","Critérios de auditoria","Materialidade","Amostragem","Matriz de planejamento","Programa de auditoria"]],
+["4. Gestão de riscos e controles internos",["Identificação e avaliação de riscos","Controles internos","COSO","Modelo das três linhas","Risco de auditoria"]],
+["5. Técnicas e procedimentos de auditoria",["Inspeção","Observação","Indagação","Confirmação","Recálculo","Reexecução","Procedimentos analíticos","Testes de controles e testes substantivos"]],
+["6. Evidências e papéis de trabalho",["Suficiência e adequação das evidências","Relevância e confiabilidade","Documentação dos trabalhos","Preservação das evidências de auditoria"]],
+["7. Achados de auditoria",["Critérios","Condições","Causas","Efeitos","Riscos","Irregularidades e impropriedades","Recomendações"]],
+["8. Relatórios e monitoramento",["Elaboração de relatórios","Comunicação dos resultados","Conclusões e recomendações","Planos de ação","Monitoramento"]],
+["9. Auditoria baseada em riscos",["Identificação de riscos","Avaliação e priorização","Tratamento de riscos no planejamento","Tratamento de riscos na execução"]],
+["10. Fraudes e irregularidades",["Prevenção, detecção e apuração de fraudes","Corrupção e conflitos de interesse","Desvios","Sobrepreço e superfaturamento","Demais irregularidades"]],
+["11. Auditoria governamental",["Controle interno e controle externo","Governança e transparência","Accountability e integridade","Avaliação de políticas públicas"]],
+["12. Auditoria de conformidade",["Legalidade","Legitimidade","Economicidade","Verificação de atos, contratos e procedimentos administrativos"]],
+["13. Auditoria operacional",["Eficiência","Eficácia","Efetividade","Economicidade","Indicadores de desempenho","Avaliação de programas e resultados"]],
+["14. Auditoria Governamental e Controle Interno",["Fundamentos, princípios, objetivos e tipos de auditoria governamental","Auditoria de conformidade, operacional e financeira","Planejamento e execução de auditoria","Evidências, achados e relatórios","Gestão de riscos e controles internos","Governança, integridade e accountability no setor público","Avaliação da ação governamental","Aprimoramento da gestão, governança, controles e resultados das políticas públicas","Prevenção, detecção e correção de irregularidades"]],
+["15. Avaliação, consultoria e apuração",["Seleção da forma de atuação conforme problema, objetivos e riscos","Avaliação: critérios de desempenho e conformidade","Exame de evidências e conclusões independentes sobre governança, controles e resultados","Consultoria: análise da demanda e pactuação de objetivos, escopo e produtos","Assessoramento, aconselhamento e facilitação","Salvaguardas de objetividade e limites às responsabilidades gerenciais","Apuração: delimitação de fatos e hipóteses","Planejamento de diligências","Reunião e preservação de elementos probatórios","Análise de possíveis prejuízos e comunicação às instâncias competentes","Diferenças entre apuração no controle interno, investigação correcional e processo sancionador","Acompanhamento de providências e aprendizado institucional","Asseguração e melhoria da qualidade dos trabalhos","Avaliação da capacidade da atividade de auditoria por evidências e planos de melhoria"]]
+]},
+{title:"Conhecimentos de Tecnologia da Informação",subjects:[
+["1. Governança e Gestão de Tecnologia da Informação",["Governança, gestão e planejamento de TI","Alinhamento entre TI e objetivos institucionais","Gestão de riscos de TI","Controles internos de tecnologia da informação","Governança e gestão de serviços","Continuidade de TI","Avaliação da governança e dos controles de TI"]],
+["2. Auditoria de Tecnologia da Informação",["Fundamentos, objetivos e tipos de auditoria de TI","Planejamento e execução de auditorias","Avaliação de controles gerais e controles de aplicação","Auditoria de sistemas de informação","Controles automatizados","Técnicas e procedimentos de auditoria","Evidências, achados, recomendações e relatórios","Auditoria baseada em riscos"]],
+["3. Segurança da Informação",["Confidencialidade, integridade, disponibilidade e autenticidade","Gestão de riscos e controles de segurança","Controle de acesso e gerenciamento de identidades","Segurança de redes, sistemas e infraestrutura","Backup e recuperação","Continuidade de serviços","Gestão de incidentes de segurança","Avaliação de controles de segurança da informação"]],
+["4. Sistemas, Bancos de Dados e Desenvolvimento",["Fundamentos de sistemas de informação","Ciclo de desenvolvimento de sistemas","Controles de desenvolvimento e manutenção","Banco de dados","Linguagem SQL","Integridade, disponibilidade e segurança dos dados","Controles de acesso e trilhas de auditoria","Testes e validação de sistemas","Confiabilidade dos registros eletrônicos e controles automatizados"]],
+["5. Dados e Auditoria de Dados",["Governança e qualidade de dados","Coleta, tratamento e análise de dados","Mineração e cruzamento de dados para auditoria","Análise de registros eletrônicos","Cruzamento de bases governamentais","Identificação de inconsistências e anomalias","Identificação de indícios de irregularidades","Técnicas e ferramentas de análise de dados aplicadas à auditoria"]],
+["6. Infraestrutura e Redes",["Conceitos de redes de computadores","Protocolos e serviços de rede","Servidores e armazenamento","Virtualização","Computação em nuvem","Segurança de infraestrutura e redes","Monitoramento e disponibilidade de serviços de TI","Avaliação de riscos e controles de infraestrutura tecnológica"]],
+["7. Contratação e Gestão de Tecnologia da Informação",["Planejamento de contratações de TI","Gestão e fiscalização de contratos de tecnologia","Acordos de nível de serviço (SLA)","Gestão de fornecedores","Avaliação de riscos e controles em contratos de TI","Auditoria da execução contratual","Conformidade das entregas"]],
+["8. Legislação e Normas Aplicadas à TI no Setor Público",["Proteção de dados pessoais e LGPD","Acesso à informação e transparência","Segurança da informação na Administração Pública","Governo digital e serviços públicos digitais","Normas, padrões e boas práticas de governança, segurança e auditoria de TI aplicáveis à Administração Pública","Inglês técnico"]]
+]}
+];
+const storeKey="auditor-ti-checklist-v1";
+let saved={};try{saved=JSON.parse(localStorage.getItem(storeKey)||"{}")}catch(e){}
+const root=document.getElementById("content");
+let total=0;
+data.forEach((group,gi)=>{
+ const h=document.createElement("div");h.className="section";h.innerHTML=`<div>${group.title}</div><span>${group.subjects.length} disciplinas</span>`;root.append(h);
+ group.subjects.forEach((subject,si)=>{
+  const details=document.createElement("details");details.className="subject";
+  const key=`${gi}-${si}`;
+  const summary=document.createElement("summary");
+  const name=document.createElement("span");name.className="subjectname";name.textContent=subject[0];
+  const chev=document.createElement("span");chev.className="chev";chev.textContent="›";
+  const count=document.createElement("span");count.className="count";
+  summary.append(chev,name,count);details.append(summary);
+  const list=document.createElement("div");list.className="sublist";
+  subject[1].forEach((topic,ti)=>{
+   total++;const id=`${key}-${ti}`;
+   const label=document.createElement("label");label.className="item";
+   const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!saved[id];
+   const txt=document.createElement("span");txt.textContent=topic;
+   if(cb.checked)label.classList.add("done");
+   cb.addEventListener("change",()=>{saved[id]=cb.checked;if(!cb.checked)delete saved[id];label.classList.toggle("done",cb.checked);persist();updateCount()});
+   label.append(cb,txt);list.append(label);
+  });
+  details.append(list);root.append(details);
+  function updateCount(){const boxes=list.querySelectorAll("input");const n=[...boxes].filter(x=>x.checked).length;count.textContent=`${n}/${boxes.length}`;}
+  details.updateCount=updateCount;updateCount();
+ });
+});
+function persist(){localStorage.setItem(storeKey,JSON.stringify(saved));updateProgress()}
+function updateProgress(){const boxes=[...document.querySelectorAll('.item input')];const n=boxes.filter(x=>x.checked).length;const p=total?Math.round(n/total*100):0;document.getElementById("percent").textContent=p+"%";document.getElementById("bar").style.width=p+"%";document.getElementById("done").textContent=`${n} assuntos concluídos`;document.getElementById("total").textContent=`${total} no total`;document.querySelectorAll("details.subject").forEach(d=>d.updateCount())}
+document.getElementById("expand").onclick=()=>document.querySelectorAll("details.subject").forEach(d=>d.open=true);
+document.getElementById("collapse").onclick=()=>document.querySelectorAll("details.subject").forEach(d=>d.open=false);
+document.getElementById("reset").onclick=()=>{if(confirm("Apagar todas as marcações deste aparelho?")){saved={};document.querySelectorAll(".item input").forEach(x=>{x.checked=false;x.closest(".item").classList.remove("done")});persist()}};
+updateProgress();
+</script>
+<script>
+let deferredInstallPrompt=null;
+const installButton=document.getElementById("install");
+window.addEventListener("beforeinstallprompt",event=>{event.preventDefault();deferredInstallPrompt=event;installButton.hidden=false;});
+installButton.addEventListener("click",async()=>{if(!deferredInstallPrompt)return;deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;installButton.hidden=true;});
+window.addEventListener("appinstalled",()=>{installButton.hidden=true;});
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(console.error));}
+</script>
+</body></html>
