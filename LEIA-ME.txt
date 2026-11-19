@@ -1,0 +1,11 @@
+# Auditor TI — aplicativo web instalável
+
+Aplicativo de checklist de estudos para Auditor de Tecnologia da Informação — STC/MA.
+
+## Publicação
+O site é publicado pelo GitHub Pages a partir da branch `main`, pasta raiz. Endereço esperado: https://lucas1tg.github.io/auditor-ti-app/
+
+## Instalação no Android
+Abra o endereço no Chrome e use **Instalar aplicativo** ou o menu ⋮ → **Instalar app / Adicionar à tela inicial**.
+
+O progresso é salvo localmente no navegador do aparelho. O funcionamento offline fica disponível após a primeira abertura com internet e o cache inicial.
