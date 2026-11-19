@@ -1,0 +1,18 @@
+{
+  "name": "Auditor TI — Plano de Estudos",
+  "short_name": "Auditor TI",
+  "description": "Checklist interativo de preparação para Auditor de Tecnologia da Informação — STC/MA.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#101827",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
